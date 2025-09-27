@@ -56,3 +56,23 @@ class FeedForward(nn.Module):
     def forward(self,x):
         return self.linear2_2(self.dropout(torch.relu(self.linear1(x))))
 
+class MultiHeadAttention(nn.Module):
+    def __init__(self, d_model: int, d_ff: int , dropout: float)->None:
+        super().__init__()
+        self.d_model = d_model
+        self.h=h
+        assert d_model % h==0
+
+        self.d_k = d_model // h
+        self.w_q=nn.Linear(d_model , d_model) #wq
+        self.w_k = nn.Linear(d_model , d_model) #wk
+        self.w_v = nn.Linear(d_model , d_model) #wv
+
+        self.w_0=nn.Linear(d_model , d_model) #w0
+        self.dropout = nn.Dropout(dropout)
+
+    def forward(self , q, k, v, mask):  
+        query = self.w_q(q) 
+        key = self.w_k(k)
+        value = self.w_v(v) 
+
